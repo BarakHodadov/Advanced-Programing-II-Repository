@@ -8,6 +8,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using ImageService.Logging.Modal;
 
 namespace ImageService
 {
@@ -53,10 +54,10 @@ namespace ImageService
                 logName = args[1];
             }
 
-            eventLog1 = new System.Diagnostics.EventLog();
-            if (!System.Diagnostics.EventLog.SourceExists("ImageServiceSource"))
+            eventLog1 = new EventLog();
+            if (!EventLog.SourceExists("ImageServiceSource"))
             {
-                System.Diagnostics.EventLog.CreateEventSource("ImageServiceSource", "ImageServiceLog");
+                EventLog.CreateEventSource("ImageServiceSource", "ImageServiceLog");
             }
             eventLog1.Source = eventSourceName;
             eventLog1.Log = logName;
@@ -110,6 +111,24 @@ namespace ImageService
             // Update the service state to Stop.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+        }
+
+        private void LogWriteEntry(object sender, MessageRecievedEventArgs arg)
+        {
+            EventLogEntryType msgType;
+            switch (arg.Status)
+            {
+                case MessageTypeEnum.WARNING:
+                    msgType = EventLogEntryType.Warning;
+                    break;
+                case MessageTypeEnum.FAIL:
+                    msgType = EventLogEntryType.Error;
+                    break;
+                default:
+                    msgType = EventLogEntryType.Information;
+                    break;
+            }
+            eventLog1.WriteEntry(arg.Message, msgType);
         }
     }
 }
