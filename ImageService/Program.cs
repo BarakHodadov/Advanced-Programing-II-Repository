@@ -15,9 +15,12 @@ namespace ImageService
         /// </summary>
         static void Main()
         {
-
             string logName = ConfigurationManager.AppSettings["LogName"];
             string sourceName = ConfigurationManager.AppSettings["SourceName"];
+            string outputDir = ConfigurationManager.AppSettings["OutputDir"];
+            string handlerDir = ConfigurationManager.AppSettings["Handler"];
+            int thumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
+
             string[] args = { logName, sourceName };
 
             ServiceBase[] ServicesToRun;

@@ -19,7 +19,7 @@ namespace ImageService.Commands
 
         /*
          * converts the data that we will send to AddFile(...)
-         * suppose that aargs[0] is sourcePath    args[1] is destPath
+         * suppose that args[0] is sourcePath    args[1] is destPath
          * result is true if succedded and false otherwise
          */
         public string Execute(string[] args, out bool result)
