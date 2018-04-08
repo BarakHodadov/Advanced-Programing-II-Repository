@@ -34,11 +34,11 @@ namespace ImageService.Modal
                 string extension = Path.GetExtension(path);
                 if ((extension != ".png") && (extension != ".jpg") && (extension != ".bmp") && (extension != ".gif"))
                 {
-                    return "";
+                    return "Task succedded.";
                 }
                 this.AddThumbnailImage(path);
                 this.AddImage(path);
-                return "";
+                return "Task succedded.";
             } catch (Exception e)
             {
                 result = false;

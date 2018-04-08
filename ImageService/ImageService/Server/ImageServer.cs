@@ -37,8 +37,8 @@ namespace ImageService.Server
                 if (Directory.Exists(directory))
                 {
                     IDirectoryHandler handler = new DirectoyHandler(directory, this.m_controller, this.m_logging);
-                    handler.StartHandleDirectory();
                     handlersList.Add(handler);
+                    handler.StartHandleDirectory();
                 }
             }
         }

@@ -9,6 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using ImageService.Logging.Modal;
+using ImageService.Server;
+using System.Configuration;
+using ImageService.Logging;
+using ImageService.Controller;
+using ImageService.Modal;
 
 namespace ImageService
 {
@@ -43,11 +48,11 @@ namespace ImageService
         {
             InitializeComponent();
 
-            string eventSourceName = "ImageServiceSource";
+            string sourceName = "ImageServiceSource";
             string logName = "ImageServiceLog";
             if (args.Count() > 0)
             {
-                eventSourceName = args[0];
+                sourceName = args[0];
             }
             if (args.Count() > 1)
             {
@@ -55,12 +60,34 @@ namespace ImageService
             }
 
             eventLog1 = new EventLog();
-            if (!EventLog.SourceExists("ImageServiceSource"))
+            if (!EventLog.SourceExists(sourceName))
             {
-                EventLog.CreateEventSource("ImageServiceSource", "ImageServiceLog");
+                EventLog.CreateEventSource(sourceName, logName);
             }
-            eventLog1.Source = eventSourceName;
+            eventLog1.Source = sourceName;
             eventLog1.Log = logName;
+
+
+            //creating the server.
+            int thumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
+            string outputDir = ConfigurationManager.AppSettings["OutputDir"];
+            
+            string handler = ConfigurationManager.AppSettings["Handler"];
+            string[] handlerDirs = { handler };
+            if (handler.Contains(";"))
+            {
+                handlerDirs = ConfigurationManager.AppSettings["Handler"].Split(';');
+            }
+
+            LoggingService logger = new LoggingService();
+            logger.MessageRecieved += LogWriteEntry;
+
+
+            ImageController imageController = new ImageController(new ImageServiceModal(outputDir, thumbnailSize));
+            List<string> dirsList = new List<string>(handlerDirs);
+            ImageServer server = new ImageServer(imageController,logger, dirsList);
+
+            server.CreateHandlers();
         }
 
         [DllImport("advapi32.dll", SetLastError = true)]
@@ -113,10 +140,10 @@ namespace ImageService
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
         }
 
-        private void LogWriteEntry(object sender, MessageRecievedEventArgs arg)
+        private void LogWriteEntry(object source, MessageRecievedEventArgs e)
         {
             EventLogEntryType msgType;
-            switch (arg.Status)
+            switch (e.Status)
             {
                 case MessageTypeEnum.WARNING:
                     msgType = EventLogEntryType.Warning;
@@ -128,7 +155,16 @@ namespace ImageService
                     msgType = EventLogEntryType.Information;
                     break;
             }
-            eventLog1.WriteEntry(arg.Message, msgType);
+            eventLog1.WriteEntry(e.Message, msgType);
+        }
+
+        public void RunAsConsole(string[] args)
+        {
+            ImageService service = new ImageService(args);
+            OnStart(args);
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadLine();
+            OnStop();
         }
     }
 }

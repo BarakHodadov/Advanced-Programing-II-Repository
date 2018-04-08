@@ -5,6 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using ImageService;
 
 namespace ImageService
 {
@@ -13,22 +14,26 @@ namespace ImageService
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        static void Main(string[] args)
         {
-            string logName = ConfigurationManager.AppSettings["LogName"];
             string sourceName = ConfigurationManager.AppSettings["SourceName"];
-            string outputDir = ConfigurationManager.AppSettings["OutputDir"];
-            string handlerDir = ConfigurationManager.AppSettings["Handler"];
-            int thumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
-
-            string[] args = { logName, sourceName };
-
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
+            string logName = ConfigurationManager.AppSettings["LogName"];
+            
+            string[] values = { sourceName, logName };
+            ImageService service = new ImageService(values);
+            if (Environment.UserInteractive)
             {
-                new ImageService(args)
-            };
-            ServiceBase.Run(ServicesToRun);
-        }
+                service.RunAsConsole(values);
+            }
+            else
+            {
+                ServiceBase[] ServicesToRun;
+                ServicesToRun = new ServiceBase[]
+                {
+                new ImageService(values)
+                };
+                ServiceBase.Run(ServicesToRun);
+            }
+        }        
     }
 }

@@ -32,10 +32,14 @@ namespace ImageService.Controller.Handlers
             this.m_dirWatcher = new FileSystemWatcher(path, "*.*");
 
             this.DirectoryChanged += OnChanged;
+            this.m_dirWatcher.Changed += OnChanged;
         }
 
         public void OnCommandRecieved(ICommand command)
-        { 
+        {
+            string message = "Handler recieved command.";
+            this.m_logging.Log(message, MessageTypeEnum.INFO);
+
             if (command is CloseCommand)
             {
                 this.CloseHandler();
@@ -45,7 +49,9 @@ namespace ImageService.Controller.Handlers
         private void OnChanged(object source, FileSystemEventArgs e)
         {
             string[] args = new[] { e.FullPath };
-            this.m_controller.ExecuteCommand(1, args, out bool result);
+            string msg = this.m_controller.ExecuteCommand(1, args, out bool result);
+
+            this.m_logging.Log(msg, MessageTypeEnum.INFO);
         }
 
         public void StartHandleDirectory()
