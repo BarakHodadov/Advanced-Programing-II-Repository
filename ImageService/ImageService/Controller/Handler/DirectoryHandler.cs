@@ -48,7 +48,8 @@ namespace ImageService.Controller.Handlers
 
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            string[] args = new[] { e.FullPath };
+            string[] args = { e.FullPath };
+            Console.WriteLine("in OnChanged");
             string msg = this.m_controller.ExecuteCommand(1, args, out bool result);
 
             this.m_logging.Log(msg, MessageTypeEnum.INFO);

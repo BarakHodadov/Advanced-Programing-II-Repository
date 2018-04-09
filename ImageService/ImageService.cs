@@ -160,10 +160,10 @@ namespace ImageService
 
         public void RunAsConsole(string[] args)
         {
-            ImageService service = new ImageService(args);
             OnStart(args);
             Console.WriteLine("Press any key to exit...");
             Console.ReadLine();
+            ServiceBase.Run(this);
             OnStop();
         }
     }

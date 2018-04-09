@@ -34,8 +34,10 @@ namespace ImageService.Modal
                 string extension = Path.GetExtension(path);
                 if ((extension != ".png") && (extension != ".jpg") && (extension != ".bmp") && (extension != ".gif"))
                 {
+                    Console.WriteLine("EXT. NOT MATCH");
                     return "Task succedded.";
                 }
+                Console.WriteLine("EXT. MATCH");
                 this.AddThumbnailImage(path);
                 this.AddImage(path);
                 return "Task succedded.";
