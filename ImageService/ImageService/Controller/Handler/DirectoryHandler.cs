@@ -11,6 +11,7 @@ using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
 using ImageService.Commands;
+using System.Threading;
 
 namespace ImageService.Controller.Handlers
 {
@@ -31,8 +32,8 @@ namespace ImageService.Controller.Handlers
             this.m_logging = loggingService;
             this.m_dirWatcher = new FileSystemWatcher(path, "*.*");
 
-            this.DirectoryChanged += OnChanged;
-            this.m_dirWatcher.Changed += OnChanged;
+           // this.DirectoryChanged += OnChanged;
+           this.m_dirWatcher.Created += OnChanged;
         }
 
         public void OnCommandRecieved(ICommand command)
@@ -48,11 +49,15 @@ namespace ImageService.Controller.Handlers
 
         private void OnChanged(object source, FileSystemEventArgs e)
         {
+            
+                Console.WriteLine("my str is:" +  this.m_path);
+            
             string[] args = { e.FullPath };
             Console.WriteLine("in OnChanged");
             string msg = this.m_controller.ExecuteCommand(1, args, out bool result);
 
             this.m_logging.Log(msg, MessageTypeEnum.INFO);
+            //Thread.Sleep(500);
         }
 
         public void StartHandleDirectory()

@@ -28,7 +28,7 @@ namespace ImageService.Commands
             string msg = m_modal.AddFile(args[0], out result);
             if (!result)
                 return msg;
-            return args[1];
+            return args[0];
         }
     }
 }

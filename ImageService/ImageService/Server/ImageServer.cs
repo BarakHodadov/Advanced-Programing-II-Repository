@@ -35,11 +35,19 @@ namespace ImageService.Server
             foreach(string directory in pathsToListen)
             {
                 if (Directory.Exists(directory))
+                if (Directory.Exists(directory))
                 {
+
                     IDirectoryHandler handler = new DirectoyHandler(directory, this.m_controller, this.m_logging);
                     handlersList.Add(handler);
                     handler.StartHandleDirectory();
+                    this.m_logging.Log("Add a handler",Logging.Modal.MessageTypeEnum.INFO);
                 }
+            }
+            Console.WriteLine("my paths are:\n");
+            foreach (string p in this.pathsToListen)
+            {
+                Console.WriteLine(p);
             }
         }
 

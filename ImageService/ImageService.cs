@@ -68,26 +68,6 @@ namespace ImageService
             eventLog1.Log = logName;
 
 
-            //creating the server.
-            int thumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
-            string outputDir = ConfigurationManager.AppSettings["OutputDir"];
-            
-            string handler = ConfigurationManager.AppSettings["Handler"];
-            string[] handlerDirs = { handler };
-            if (handler.Contains(";"))
-            {
-                handlerDirs = ConfigurationManager.AppSettings["Handler"].Split(';');
-            }
-
-            LoggingService logger = new LoggingService();
-            logger.MessageRecieved += LogWriteEntry;
-
-
-            ImageController imageController = new ImageController(new ImageServiceModal(outputDir, thumbnailSize));
-            List<string> dirsList = new List<string>(handlerDirs);
-            ImageServer server = new ImageServer(imageController,logger, dirsList);
-
-            server.CreateHandlers();
         }
 
         [DllImport("advapi32.dll", SetLastError = true)]
@@ -111,6 +91,29 @@ namespace ImageService
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+
+            //creating the server.
+            int thumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
+            string outputDir = ConfigurationManager.AppSettings["OutputDir"];
+
+            string handler = ConfigurationManager.AppSettings["Handler"];
+            string[] handlerDirs = { handler };
+            if (handler.Contains(";"))
+            {
+                handlerDirs = ConfigurationManager.AppSettings["Handler"].Split(';');
+            }
+
+            LoggingService logger = new LoggingService();
+            logger.MessageRecieved += LogWriteEntry;
+
+
+            ImageController imageController = new ImageController(new ImageServiceModal(outputDir, thumbnailSize));
+            List<string> dirsList = new List<string>(handlerDirs);
+            ImageServer server = new ImageServer(imageController, logger, dirsList);
+
+            server.CreateHandlers();
+
         }
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
@@ -161,9 +164,8 @@ namespace ImageService
         public void RunAsConsole(string[] args)
         {
             OnStart(args);
-            Console.WriteLine("Press any key to exit...");
+            Console.WriteLine("Enter any key to continue");
             Console.ReadLine();
-            ServiceBase.Run(this);
             OnStop();
         }
     }
