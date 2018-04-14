@@ -24,49 +24,39 @@ namespace ImageService.Modal
         {
             this.m_OutputFolder = outputFolder;
             this.m_thumbnailSize = thumbnailSize;
+
+            DirectoryInfo di = Directory.CreateDirectory(outputFolder);
+            di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
         }
 
         public string AddFile(string path, out bool result)
         {
-            Console.WriteLine("add again");
             result = true;
             try
             {
                 Task t1 = new Task(() =>
                  {
-                     while (!this.IsLocked(path))
+                     while (!this.IsAvailable(path))
                          Thread.Sleep(500);
 
                      string extension = Path.GetExtension(path);
                      if ((extension != ".png") && (extension != ".jpg") && (extension != ".bmp") && (extension != ".gif"))
                      {
-                         Console.WriteLine("EXT. NOT MATCH");
-                         Console.WriteLine(path + " File exs. is " + Path.GetExtension(path));
+                         //Console.WriteLine("EXT. NOT MATCH");
+                         //Console.WriteLine(path + " File exs. is " + Path.GetExtension(path));
                          // return "Task succedded.";
                      }
-                     Console.WriteLine("EXT. MATCH");
-                  this.AddThumbnailImage(path);
+                     this.AddThumbnailImage(path);
 
                      this.AddImage(path);
                  });
                 t1.Start();
-                    //Thread.Sleep(1000);
-               // });
-               // t1.Start();
-               // t1.Wait();
-
-                /*Task t2 = new Task(() =>
-                {*/
-                    //Thread.Sleep(1000);
-                //});
-                //t2.Start();
-                //t2.Wait();
 
                 return "Task succedded.";
             }
             catch (Exception e)
             {
-                Console.WriteLine("failed");
+                //Console.WriteLine("failed");
                 result = false;
                 throw e;
             }
@@ -83,7 +73,7 @@ namespace ImageService.Modal
                 string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
                 return DateTime.Parse(dateTaken);
             }*/
-
+            // set a default year and month
             string year = "";
             string month = "";
             try
@@ -94,116 +84,110 @@ namespace ImageService.Modal
                 DateTime datePicTaken = DateTime.Parse(metadata.DateTaken);
                 year = datePicTaken.Year.ToString();
                 month = datePicTaken.Month.ToString();
-                Console.WriteLine($"Got Date from {path}, year={year} month={month}");
                 return new DateTime(int.Parse(year), int.Parse(month), 1);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Couldnt resolve image date. path={0}\n exception={1}", path, e);
+                // if there was an error than set a default date.
                 return new DateTime(1, 1, 1);
             }
 
         }
         private void AddImage(string path)
         {
-            string month, year;
-            while (!IsLocked(path))
+            string month, year, ext;
+            while (!IsAvailable(path)) // wait for the image's resources to be released
             {
-                Console.Write("a");
                 GC.Collect();
                 Thread.Sleep(500);
             }
-            string fileName = "", finalPath = "";
+            string fileName = "", finalPath = ""; // default fileName and path
             try
             {
-                Console.WriteLine("my path is" + path);
+                // get the date from the image
                 DateTime imageDate = GetDateTakenFromImage(path);
-
-               
-                    year = imageDate.Year.ToString();
-                    month = imageDate.Month.ToString();
-                }
-                catch (Exception)
-                {
-                    month = "undifined";
-                    year = "undifined";
-                }
-            
-
-
-                string imagePath = Path.Combine(m_OutputFolder, year, month);
-                Directory.CreateDirectory(imagePath);
-            Console.WriteLine("here (2) ");
-
-
-            fileName = Path.GetFileName(path);
-                 finalPath = Path.Combine(imagePath, fileName);
-
-                for (int i = 1; i <= 100; i++)
-                {
-                    if (!Directory.Exists(finalPath))
-                    {
-                        break;
-                    }
-                    finalPath = Path.Combine(imagePath, fileName, "(", i.ToString(), ")");
-                }
-
-            Console.WriteLine("final path is " +  finalPath);
-            while (!IsLocked(path))
+                year = imageDate.Year.ToString();
+                month = imageDate.Month.ToString();
+            }
+            catch (Exception)
             {
-                Console.Write("a");
+                // if there was an error set to undifined
+                month = "undifined";
+                year = "undifined";
+            }
+            
+            string imagePath = Path.Combine(m_OutputFolder, year, month);
+            Directory.CreateDirectory(imagePath);
+
+            fileName = Path.GetFileNameWithoutExtension(path);
+            ext = Path.GetExtension(path);
+            finalPath = Path.Combine(imagePath, fileName + ext); // concatenate the path, name and extention
+
+            // if there is an image with this name add a number to the name
+            for (int i = 1; i <= 100; i++)
+            {
+                if (!File.Exists(finalPath))
+                {
+                    break;
+                }
+                finalPath = Path.Combine(imagePath, fileName + "(" + i.ToString() + ")" + ext);
+            }
+            
+            // wait until the image if free to use
+            while (!IsAvailable(path))
+            {
                 GC.Collect();
                 Thread.Sleep(500);
             }
-            Console.WriteLine(path);
-            Console.WriteLine(finalPath);
-                File.Move(path, finalPath);
-            
-           
+            // move the image to it's new location
+            File.Move(path, finalPath);
+
+
         }
         private void AddThumbnailImage(string path)
         {
-            string year, month; 
+            string year, month;
             Image image = Image.FromFile(path);
             Image thumb = image.GetThumbnailImage(this.m_thumbnailSize, this.m_thumbnailSize, () => false, IntPtr.Zero);
             try
             {
-                Console.WriteLine("my path is:" +  path);
+                // get the date from the image
                 DateTime imageDate = GetDateTakenFromImage(path);
-                 year = imageDate.Year.ToString();
-                 month = imageDate.Month.ToString();
+                year = imageDate.Year.ToString();
+                month = imageDate.Month.ToString();
 
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
+                // if there was an error set a default values
                 month = "undifined";
                 year = "undifined";
             }
 
+            // create the dir
             string thumbnailImagePath = Path.Combine(m_OutputFolder, "Thumbnails", year, month);
             Directory.CreateDirectory(thumbnailImagePath);
 
-            string fileName = Path.GetFileName(path);
-            string finalPath = Path.Combine(thumbnailImagePath, fileName);
+            string fileName = Path.GetFileNameWithoutExtension(path);
+            string ext = Path.GetExtension(path);
+            string finalPath = Path.Combine(thumbnailImagePath, fileName + ext);
 
+            // if there is an image with this name add a number to the name
             for (int i = 1; i <= 100; i++)
             {
-                if (!Directory.Exists(finalPath))
+                if (!File.Exists(finalPath))
                 {
                     break;
                 }
-                finalPath = Path.Combine(thumbnailImagePath, fileName, "(", i.ToString(), ")");
+                finalPath = Path.Combine(thumbnailImagePath, fileName + "(" + i.ToString() + ")" + ext);
             }
 
             thumb.Save(finalPath);
-           // GC.Collect();
             image.Dispose();
             Thread.Sleep(500);
-            //File.Delete(path);
-
-            //thumb.Dispose()
         }
 
-        private bool IsLocked(string strFullFileName)
+        private bool IsAvailable(string strFullFileName)
         {
             /*bool blnReturn = false;
             FileStream fs;
@@ -237,8 +221,6 @@ namespace ImageService.Modal
             {
                 return false;
             }
-
-
         }
     }
 }

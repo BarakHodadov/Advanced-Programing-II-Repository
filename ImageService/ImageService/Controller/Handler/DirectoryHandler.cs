@@ -24,40 +24,37 @@ namespace ImageService.Controller.Handlers
         private string m_path;                              // The Path of directory
         #endregion
 
-        public event EventHandler<FileSystemEventArgs> DirectoryChanged;
+        public event EventHandler DirectoryClosed;
         public DirectoyHandler(string path, IImageController imageController, ILoggingService loggingService)
         {
             this.m_path = path;
             this.m_controller = imageController;
             this.m_logging = loggingService;
             this.m_dirWatcher = new FileSystemWatcher(path, "*.*");
-
-           // this.DirectoryChanged += OnChanged;
-           this.m_dirWatcher.Created += OnChanged;
+            
+            this.m_dirWatcher.Created += OnChanged;
+            //this.DirectoryClosed += CloseHandler;
         }
 
+        // called when the handler get a command
         public void OnCommandRecieved(ICommand command)
         {
             string message = "Handler recieved command.";
-            this.m_logging.Log(message, MessageTypeEnum.INFO);
+            this.m_logging.Log(message, MessageTypeEnum.INFO); // write to the log.
 
+            // check if it a close command
             if (command is CloseCommand)
             {
-                this.CloseHandler();
+                this.CloseHandler(); // close the handler
             }
         }
 
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            
-                Console.WriteLine("my str is:" +  this.m_path);
-            
             string[] args = { e.FullPath };
-            Console.WriteLine("in OnChanged");
             string msg = this.m_controller.ExecuteCommand(1, args, out bool result);
 
             this.m_logging.Log(msg, MessageTypeEnum.INFO);
-            //Thread.Sleep(500);
         }
 
         public void StartHandleDirectory()
@@ -65,8 +62,10 @@ namespace ImageService.Controller.Handlers
             this.m_dirWatcher.EnableRaisingEvents = true;
         }
 
+        // this function closes the handler.
         public void CloseHandler()
         {
+            this.m_logging.Log("The handler cloesd successfuly", MessageTypeEnum.INFO);
             this.m_dirWatcher.EnableRaisingEvents = false;
             this.m_dirWatcher.Dispose();
         }

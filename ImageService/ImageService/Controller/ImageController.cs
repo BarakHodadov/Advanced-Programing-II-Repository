@@ -22,6 +22,8 @@ namespace ImageService.Controller
             // For Now will contain NEW_FILE_COMMAND
             commands.Add(1, new NewFileCommand(m_modal));
         }
+
+        // the function gets a command id and arguments and executes it.
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
             string str = commands[commandID].Execute(args, out resultSuccesful);

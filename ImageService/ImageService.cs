@@ -19,6 +19,8 @@ namespace ImageService
 {
     public partial class ImageService : ServiceBase
     {
+        public event EventHandler CloseService;
+
         private int eventId = 1;
 
         public enum ServiceState
@@ -107,12 +109,15 @@ namespace ImageService
             LoggingService logger = new LoggingService();
             logger.MessageRecieved += LogWriteEntry;
 
-
             ImageController imageController = new ImageController(new ImageServiceModal(outputDir, thumbnailSize));
             List<string> dirsList = new List<string>(handlerDirs);
             ImageServer server = new ImageServer(imageController, logger, dirsList);
-
             server.CreateHandlers();
+
+            CloseService += delegate
+            {
+                server.OnCloseServer(this, EventArgs.Empty);
+            };
 
         }
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
@@ -141,6 +146,8 @@ namespace ImageService
             // Update the service state to Stop.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+            CloseService.Invoke(this, EventArgs.Empty);
         }
 
         private void LogWriteEntry(object source, MessageRecievedEventArgs e)

@@ -12,6 +12,7 @@ namespace ImageService.Commands
     {
         IDirectoryHandler directoryHandler;
 
+        // A constructor.
         public CloseCommand(IDirectoryHandler directoryHandler)
         {
             this.directoryHandler = directoryHandler;
@@ -19,6 +20,7 @@ namespace ImageService.Commands
 
         public string Execute(string[] args, out bool result)
         {
+            // send a message to the handler that this command needs to be executed.
             this.directoryHandler.OnCommandRecieved(this);
             result = true;
             return "";

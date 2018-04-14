@@ -22,6 +22,7 @@ namespace ImageService.Server
         private List<IDirectoryHandler> handlersList;
         #endregion
        
+        // A constructor.
         public ImageServer(IImageController imageController, ILoggingService loggingService, List<string> paths)
         {
             this.m_controller = imageController;
@@ -32,32 +33,29 @@ namespace ImageService.Server
 
         public void CreateHandlers()
         {
+            // goes through all directories in the list and if it exists than creates a new handler and handles the directory.
             foreach(string directory in pathsToListen)
             {
                 if (Directory.Exists(directory))
-                if (Directory.Exists(directory))
                 {
-
-                    IDirectoryHandler handler = new DirectoyHandler(directory, this.m_controller, this.m_logging);
-                    handlersList.Add(handler);
-                    handler.StartHandleDirectory();
-                    this.m_logging.Log("Add a handler",Logging.Modal.MessageTypeEnum.INFO);
+                    IDirectoryHandler handler = new DirectoyHandler(directory, this.m_controller, this.m_logging); // create handler
+                    handlersList.Add(handler); // adds to the list
+                    handler.StartHandleDirectory(); // starting handle the directory
+                    this.m_logging.Log("Add a handler",Logging.Modal.MessageTypeEnum.INFO); // sending message to the log file
+                    
                 }
             }
-            Console.WriteLine("my paths are:\n");
-            foreach (string p in this.pathsToListen)
-            {
-                Console.WriteLine(p);
-            }
         }
 
-        public void OnCloseServer(IDirectoryHandler sender)
+        // this function is called when the server is been closed
+        public void OnCloseServer(Object sender, EventArgs e)
         {
-           foreach (IDirectoryHandler handler in handlersList)
+            List<IDirectoryHandler> tempList = new List<IDirectoryHandler>(handlersList);
+            // goes through all handlers and tells them that the server is been closed.
+           foreach (IDirectoryHandler handler in tempList)
             {
-                handler.OnCommandRecieved(new CloseCommand(handler));
+                handler.OnCommandRecieved(new CloseCommand(handler)); // creates a new close command and handles it.
             }
         }
-       
     }
 }
