@@ -22,6 +22,7 @@ namespace ImageService.Server
         private List<IDirectoryHandler> handlersList;
         #endregion
        
+        public event EventHandler CloseServer;
         // A constructor.
         public ImageServer(IImageController imageController, ILoggingService loggingService, List<string> paths)
         {
@@ -42,7 +43,11 @@ namespace ImageService.Server
                     handlersList.Add(handler); // adds to the list
                     handler.StartHandleDirectory(); // starting handle the directory
                     this.m_logging.Log("Add a handler",Logging.Modal.MessageTypeEnum.INFO); // sending message to the log file
-                    
+
+                    CloseServer += delegate
+                    {
+                        handler.OnCommandRecieved(new CloseCommand(handler));
+                    };
                 }
             }
         }
@@ -50,12 +55,15 @@ namespace ImageService.Server
         // this function is called when the server is been closed
         public void OnCloseServer(Object sender, EventArgs e)
         {
+            /*
             List<IDirectoryHandler> tempList = new List<IDirectoryHandler>(handlersList);
-            // goes through all handlers and tells them that the server is been closed.
+            //goes through all handlers and tells them that the server is been closed.
            foreach (IDirectoryHandler handler in tempList)
             {
                 handler.OnCommandRecieved(new CloseCommand(handler)); // creates a new close command and handles it.
             }
+            */
+            this.CloseServer?.Invoke(this, EventArgs.Empty);
         }
     }
 }

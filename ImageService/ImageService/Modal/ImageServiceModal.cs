@@ -65,33 +65,25 @@ namespace ImageService.Modal
         //retrieves the datetime WITHOUT loading the whole image
         public DateTime GetDateTakenFromImage(string path)
         {
-            /*Regex r = new Regex(":");
-            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-            using (Image myImage = Image.FromStream(fs, false, false))
-            {
-                PropertyItem propItem = myImage.GetPropertyItem(36867);
-                string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
-                return DateTime.Parse(dateTaken);
-            }*/
-            // set a default year and month
+            //set a default year and month
             string year = "";
             string month = "";
             try
             {
-                var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                var img = BitmapFrame.Create(fs);
-                var metadata = img.Metadata as BitmapMetadata;
-                DateTime datePicTaken = DateTime.Parse(metadata.DateTaken);
-                year = datePicTaken.Year.ToString();
-                month = datePicTaken.Month.ToString();
+                var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var image = BitmapFrame.Create(fileStream);
+                var metadata = image.Metadata as BitmapMetadata;
+                DateTime dateTaken = DateTime.Parse(metadata.DateTaken);
+
+                year = dateTaken.Year.ToString();
+                month = dateTaken.Month.ToString();
                 return new DateTime(int.Parse(year), int.Parse(month), 1);
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 // if there was an error than set a default date.
                 return new DateTime(1, 1, 1);
             }
-
         }
         private void AddImage(string path)
         {

@@ -147,7 +147,7 @@ namespace ImageService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            CloseService.Invoke(this, EventArgs.Empty);
+            CloseService?.Invoke(this, EventArgs.Empty);
         }
 
         private void LogWriteEntry(object source, MessageRecievedEventArgs e)

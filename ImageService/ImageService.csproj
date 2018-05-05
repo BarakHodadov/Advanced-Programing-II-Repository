@@ -53,11 +53,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageService.Infrastructure\Enums\CommandEnum.cs" />
-    <Compile Include="ImageService.Logging\ILoggingService.cs" />
-    <Compile Include="ImageService.Logging\LoggingService.cs" />
-    <Compile Include="ImageService.Logging\Modal\MessageRecievedEventArgs.cs" />
-    <Compile Include="ImageService.Logging\Modal\MessageTypeEnum.cs" />
     <Compile Include="ImageService\Commands\CloseCommand.cs" />
     <Compile Include="ImageService\Commands\ICommand.cs" />
     <Compile Include="ImageService\Commands\NewFileCommand.cs" />
