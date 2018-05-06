@@ -16,8 +16,8 @@ namespace ImageService
         /// </summary>
         static void Main(string[] args)
         {   
-            string sourceName = ConfigurationManager.AppSettings["SourceName"];
-            string logName = ConfigurationManager.AppSettings["LogName"];
+            string sourceName = AppConfigReader.Instance.GetValueByKey("SourceName");
+            string logName = AppConfigReader.Instance.GetValueByKey("LogName");
 
             string[] values = { sourceName, logName };
             ImageService service = new ImageService(values);

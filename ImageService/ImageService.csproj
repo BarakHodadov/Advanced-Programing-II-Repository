@@ -54,7 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageService\Commands\CloseCommand.cs" />
+    <Compile Include="ImageService\Commands\GetConfigCommand.cs" />
     <Compile Include="ImageService\Commands\ICommand.cs" />
+    <Compile Include="ImageService\Commands\LogCommand.cs" />
     <Compile Include="ImageService\Commands\NewFileCommand.cs" />
     <Compile Include="ImageService\Controller\Handler\DirectoryHandler.cs" />
     <Compile Include="ImageService\Controller\Handler\IDirectoryHandler.cs" />
@@ -70,6 +72,8 @@
     <Compile Include="ImageService\Modal\Event\DirectoryCloseEventArgs.cs" />
     <Compile Include="ImageService\Modal\IImageServiceModal.cs" />
     <Compile Include="ImageService\Modal\ImageServiceModal.cs" />
+    <Compile Include="ImageService\Other\AppConfigReader.cs" />
+    <Compile Include="ImageService\Other\Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -91,6 +95,19 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ImageService.Communication\ImageService.Communication.csproj">
+      <Project>{9ee5fe76-063f-4771-b035-2d7d690ff796}</Project>
+      <Name>ImageService.Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageService.Infrastructure\ImageService.Infrastructure.csproj">
+      <Project>{989d3a8c-93b6-49a3-836c-31c5888b6061}</Project>
+      <Name>ImageService.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageService.Logging\ImageService.Logging.csproj">
+      <Project>{478d2c1b-5f74-4937-a721-79ff86387040}</Project>
+      <Name>ImageService.Logging</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

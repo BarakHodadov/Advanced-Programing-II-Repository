@@ -15,12 +15,14 @@ namespace ImageService.Controller
         private IImageServiceModal m_modal;                      // The Modal Object
         private Dictionary<int, ICommand> commands;
 
-        public ImageController(IImageServiceModal modal)
+        public ImageController(IImageServiceModal modal, Logger logs)
         {
             m_modal = modal;             // Storing the Modal Of The System
             commands = new Dictionary<int, ICommand>();
-            // For Now will contain NEW_FILE_COMMAND
+
             commands.Add(1, new NewFileCommand(m_modal));
+            commands.Add(2, new GetConfigCommand());
+            commands.Add(3, new LogCommand(logs));
         }
 
         // the function gets a command id and arguments and executes it.

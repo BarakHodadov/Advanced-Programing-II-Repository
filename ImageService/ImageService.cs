@@ -96,20 +96,23 @@ namespace ImageService
 
 
             //creating the server.
-            int thumbnailSize = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
-            string outputDir = ConfigurationManager.AppSettings["OutputDir"];
+            int thumbnailSize = int.Parse(AppConfigReader.Instance.GetValueByKey("ThumbnailSize"));
+            string outputDir = AppConfigReader.Instance.GetValueByKey("OutputDir");
 
-            string handler = ConfigurationManager.AppSettings["Handler"];
+            string handler = AppConfigReader.Instance.GetValueByKey("Handler");
             string[] handlerDirs = { handler };
             if (handler.Contains(";"))
             {
-                handlerDirs = ConfigurationManager.AppSettings["Handler"].Split(';');
+                handlerDirs = AppConfigReader.Instance.GetValueByKey("Handler").Split(';');
             }
 
             LoggingService logger = new LoggingService();
             logger.MessageRecieved += LogWriteEntry;
 
-            ImageController imageController = new ImageController(new ImageServiceModal(outputDir, thumbnailSize));
+            Logger logs = new Logger();
+            logger.MessageRecieved += logs.addLog;
+
+            ImageController imageController = new ImageController(new ImageServiceModal(outputDir, thumbnailSize), logs);
             List<string> dirsList = new List<string>(handlerDirs);
             ImageServer server = new ImageServer(imageController, logger, dirsList);
             server.CreateHandlers();
