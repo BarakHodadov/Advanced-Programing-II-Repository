@@ -35,5 +35,25 @@ namespace ImageService
         {
             return ConfigurationManager.AppSettings[value];
         }
+        public void ChangeValueByKey(string key, string value)
+        {
+
+        }
+
+        public string this[string key]
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings[key];
+            }
+            set
+            {
+                // Got this from here: https://social.msdn.microsoft.com/Forums/vstudio/en-US/b865ce7a-6616-4109-90a5-553efc928075/modify-connectionstring-in-appconfig?forum=csharpgeneral
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.ConnectionStrings.ConnectionStrings[key].ConnectionString = value;
+                config.Save(ConfigurationSaveMode.Modified, true);
+                ConfigurationManager.RefreshSection("appSetting");
+            }
+        }
     }
 }
