@@ -73,6 +73,7 @@
     <Compile Include="ImageService\Modal\IImageServiceModal.cs" />
     <Compile Include="ImageService\Modal\ImageServiceModal.cs" />
     <Compile Include="ImageService\Other\AppConfigReader.cs" />
+    <Compile Include="ImageService\Other\Log.cs" />
     <Compile Include="ImageService\Other\Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">

@@ -15,11 +15,15 @@ namespace ImageService.Communication
         private TcpListener listener;
         private IClientHandler ch;
 
+        public event execute OnCommandRecieved;
+
         public TCPServer(string ip, int port, IClientHandler ch)
         {
             this.ip = ip;
             this.port = port;
             this.ch = ch;
+            ch.executeCommand += Temp;
+            ch.executeCommand += this.OnCommandRecieved;
         }
         public void Start()
         {
@@ -50,6 +54,12 @@ namespace ImageService.Communication
         public void Stop()
         {
             listener.Stop();
+        }
+
+        public string Temp(int id,string[] args, out bool resultSuccesful)
+        {
+            resultSuccesful = true;
+            return this.OnCommandRecieved?.Invoke(id,args,out resultSuccesful);
         }
     }
 }

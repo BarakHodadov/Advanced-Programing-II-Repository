@@ -149,7 +149,7 @@ namespace ImageService.Modal
                 month = imageDate.Month.ToString();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // if there was an error set a default values
                 month = "undifined";

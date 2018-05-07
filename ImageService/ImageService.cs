@@ -14,6 +14,7 @@ using System.Configuration;
 using ImageService.Logging;
 using ImageService.Controller;
 using ImageService.Modal;
+using ImageService.Communication;
 
 namespace ImageService
 {
@@ -122,6 +123,9 @@ namespace ImageService
                 server.OnCloseServer(this, EventArgs.Empty);
             };
 
+            TCPServer tcpserver = new TCPServer("127.0.0.1", 8000, new ClientHandler());
+            tcpserver.OnCommandRecieved += imageController.ExecuteCommand;
+            tcpserver.Start();
         }
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
