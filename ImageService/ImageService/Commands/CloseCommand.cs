@@ -22,6 +22,9 @@ namespace ImageService.Commands
         {
             // send a message to the handler that this command needs to be executed.
             this.directoryHandler.OnCommandRecieved(this);
+
+            //this.directoryHandler.DirectoryClosed?.Invoke();
+            //AppConfigReader.Instance.removeHandler(args[0]);
             result = true;
             return "";
         }

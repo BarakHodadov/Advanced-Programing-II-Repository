@@ -33,7 +33,7 @@ namespace ImageService.Controller.Handlers
             this.m_dirWatcher = new FileSystemWatcher(path, "*.*");
             
             this.m_dirWatcher.Created += OnChanged;
-            //this.DirectoryClosed += CloseHandler;
+            this.DirectoryClosed += CloseHandler;
         }
 
         // called when the handler get a command
@@ -45,7 +45,7 @@ namespace ImageService.Controller.Handlers
             // check if it a close command
             if (command is CloseCommand)
             {
-                this.CloseHandler(); // close the handler
+                this.CloseHandler(this, EventArgs.Empty); // close the handler
             }
         }
 
@@ -63,8 +63,10 @@ namespace ImageService.Controller.Handlers
         }
 
         // this function closes the handler.
-        public void CloseHandler()
+        public void CloseHandler(object sender, EventArgs e)
         {
+            AppConfigReader.Instance.removeHandler(this.m_path);
+
             this.m_logging.Log("The handler cloesd successfuly", MessageTypeEnum.INFO);
             this.m_dirWatcher.EnableRaisingEvents = false;
             this.m_dirWatcher.Dispose();

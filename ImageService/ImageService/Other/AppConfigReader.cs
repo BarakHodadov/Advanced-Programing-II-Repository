@@ -39,7 +39,8 @@ namespace ImageService
         {
 
         }
-
+        
+        // Indexer.
         public string this[string key]
         {
             get
@@ -54,6 +55,30 @@ namespace ImageService
                 config.Save(ConfigurationSaveMode.Modified, true);
                 ConfigurationManager.RefreshSection("appSetting");
             }
+        }
+        
+         /// <summary>
+         /// Remove handler method.
+         /// Change the app config by removing the handler.
+         /// </summary>
+         /// <param name="handler"></param>
+        public void removeHandler(string handler)
+        {
+            string handlers = this["Handler"];
+
+            //Add your code here...
+            string[] handlersList = handler.Split(';');
+
+            for (int i = 0; i < handlersList.Length; i++)
+            {
+                if (handlersList[i] == handler)
+                {
+                    handlersList[i] = "";
+                    break;
+                }
+            }
+            handlers = String.Join(";", handlersList);
+            this["Handler"] = handlers;
         }
     }
 }

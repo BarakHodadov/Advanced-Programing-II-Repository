@@ -17,6 +17,7 @@ namespace ImageService.Commands
 
         public string Execute(string[] args, out bool result)
         {
+            Console.WriteLine(this.logger.Logs.Count);
             result = true;
             string logs = "";
             foreach(Log l in this.logger.Logs)

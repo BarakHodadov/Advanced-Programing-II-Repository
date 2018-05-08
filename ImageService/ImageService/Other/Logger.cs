@@ -15,7 +15,7 @@ namespace ImageService
         }
         public List<Log> Logs
         {
-            get { return this.Logs; }
+            get { return this.logs; }
         }
         public void addLog(object source, Logging.Modal.MessageRecievedEventArgs e)
         {

@@ -26,5 +26,9 @@ namespace ImageService
             get { return this.message; }
             set { this.message = value; }
         }
+        public override string ToString()
+        {
+            return this.type + " " + this.Message;
+        }
     }
 }
