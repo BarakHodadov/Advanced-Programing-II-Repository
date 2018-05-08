@@ -123,8 +123,9 @@ namespace ImageService
                 server.OnCloseServer(this, EventArgs.Empty);
             };
 
-            TCPServer tcpserver = new TCPServer("127.0.0.1", 8000, new ClientHandler());
-            tcpserver.OnCommandRecieved += imageController.ExecuteCommand;
+            ClientHandler ch = new ClientHandler();
+            ch.executeCommand += imageController.ExecuteCommand;
+            TCPServer tcpserver = new TCPServer("127.0.0.1", 8000, ch);
             tcpserver.Start();
         }
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)

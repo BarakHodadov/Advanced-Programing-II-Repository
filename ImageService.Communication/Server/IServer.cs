@@ -8,7 +8,6 @@ namespace ImageService.Communication
 {
     public interface IServer
     {
-        event execute OnCommandRecieved;
         void Start();
         void Stop();
     }
