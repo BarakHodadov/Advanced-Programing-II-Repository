@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 using System.Threading.Tasks;
+using ImageService.Infrastructure;
 
 namespace ImageService.Commands
 {
-    class GetConfigCommand : ICommand
+    public class GetConfigCommand : ICommand
     {
         public GetConfigCommand()
         {

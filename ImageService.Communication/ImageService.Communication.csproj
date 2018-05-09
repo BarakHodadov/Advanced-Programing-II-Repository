@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Delegates\ExecuteDelegate.cs" />
+    <Compile Include="Json\JsonConverter.cs" />
     <Compile Include="Server\ClientHandler\ClientHandler.cs" />
     <Compile Include="Client\IClient.cs" />
     <Compile Include="Server\ClientHandler\IClientHandler.cs" />
@@ -49,6 +53,14 @@
     <Compile Include="Client\TCPClient.cs" />
     <Compile Include="Server\TCPServer.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ImageService.Infrastructure\ImageService.Infrastructure.csproj">
+      <Project>{989d3a8c-93b6-49a3-836c-31c5888b6061}</Project>
+      <Name>ImageService.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

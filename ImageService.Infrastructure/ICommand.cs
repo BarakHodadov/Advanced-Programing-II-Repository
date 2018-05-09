@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService.Commands
+namespace ImageService.Infrastructure
 {
     public interface ICommand
     {
         string Execute(string[] args, out bool result);
-
     }
 }
