@@ -107,7 +107,7 @@ namespace ImageService
             {
                 handlerDirs = AppConfigReader.Instance.GetValueByKey("Handler").Split(';');
             }
-
+            
             LoggingService logger = new LoggingService();
             logger.MessageRecieved += LogWriteEntry;
 

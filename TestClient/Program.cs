@@ -31,13 +31,13 @@ namespace TestClient
             Console.WriteLine("Enter command id:");
             //int commandID = int.Parse(Console.ReadLine());
             //c1.sendrecieve(commandID.ToString());
-            string data = makeData(CommandEnum.LogCommand);
+            string data = makeData(CommandEnum.CloseCommand, new string[] { @"C:\Users\Barak\Desktop\temp" });
             
             Console.WriteLine("Sent data : " + data);
             c1.sendrecieve(data);
             c1.Disconnect();
             Console.ReadLine();
-            
+
             #endregion
             #region 2nd client
             /*
@@ -49,7 +49,7 @@ namespace TestClient
             Console.WriteLine(c2.sendrecieve("this is c2"));
             */
             #endregion
-            
+
             #region json
             /*
             JsonConvertor convertor = new JsonConvertor();
@@ -60,11 +60,13 @@ namespace TestClient
             Console.WriteLine(cmd.ToString());
             */
             #endregion
-            
+
+            #region command enum
             //int commandID = (int)CommandEnum.NewFileCommand;
             //Console.WriteLine(commandID);
             //CommandEnum commandname = CommandEnum.NewFileCommand;
             //Console.WriteLine(commandname);
+            #endregion
             Console.ReadLine();
         }
     }

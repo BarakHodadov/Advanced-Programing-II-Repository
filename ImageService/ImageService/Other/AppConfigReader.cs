@@ -53,11 +53,11 @@ namespace ImageService
             }
             set
             {
-                // Got this from here: https://social.msdn.microsoft.com/Forums/vstudio/en-US/b865ce7a-6616-4109-90a5-553efc928075/modify-connectionstring-in-appconfig?forum=csharpgeneral
+                // Got this from here: https://stackoverflow.com/questions/5468342/how-to-modify-my-app-exe-config-keys-at-runtime?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                config.ConnectionStrings.ConnectionStrings[key].ConnectionString = value;
-                config.Save(ConfigurationSaveMode.Modified, true);
-                ConfigurationManager.RefreshSection("appSetting");
+
+                config.AppSettings.Settings[key].Value = value;
+                config.Save(ConfigurationSaveMode.Modified);
             }
         }
         
@@ -71,7 +71,7 @@ namespace ImageService
             string handlers = this["Handler"];
 
             //Add your code here...
-            string[] handlersList = handler.Split(';');
+            string[] handlersList = handlers.Split(';');
 
             for (int i = 0; i < handlersList.Length; i++)
             {
@@ -83,6 +83,7 @@ namespace ImageService
             }
             handlers = String.Join(";", handlersList);
             this["Handler"] = handlers;
+            Console.WriteLine("changed handles to:" + handlers);
         }
     }
 }

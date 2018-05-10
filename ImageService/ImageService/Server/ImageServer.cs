@@ -49,6 +49,10 @@ namespace ImageService.Server
                         handler.OnCommandRecieved(new CloseCommand(this.handlersList));
                     };
                 }
+                else
+                {
+                    Console.WriteLine("dir " + directory + "does not exists !!!!!!!!!!!!!!!!!!");
+                }
             }
         }
 

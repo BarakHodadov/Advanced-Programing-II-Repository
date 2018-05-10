@@ -47,6 +47,7 @@ namespace ImageService.Controller.Handlers
             // check if it a close command
             if (command is CloseCommand)
             {
+                Console.WriteLine("I - " + this.m_path + " am bieng closed");
                 this.CloseHandler(this, EventArgs.Empty); // close the handler
             }
         }
@@ -68,7 +69,6 @@ namespace ImageService.Controller.Handlers
         public void CloseHandler(object sender, EventArgs e)
         {
             AppConfigReader.Instance.removeHandler(this.m_path);
-            Console.WriteLine("I - " + this.m_path + " am bieng closed");
             this.m_logging.Log("The handler cloesd successfuly", MessageTypeEnum.INFO);
             this.m_dirWatcher.EnableRaisingEvents = false;
             this.m_dirWatcher.Dispose();
