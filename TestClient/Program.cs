@@ -9,10 +9,18 @@ namespace TestClient
 {
     class Program
     {
+        public static string makeData(CommandEnum cmd, string[] args = null)
+        {
+            string data = CommandConvertor.Instance.ConvertCommandToID(cmd) + ";";
+            if (args != null)
+            {
+                data = data + String.Join(';', args);
+            }
+            return data;
+        }
         static void Main(string[] args)
         {
             #region test client
-            /*
             string ip = "127.0.0.1";
             int port = 8000;
             IClient c1 = new TCPClient(ip, port);
@@ -21,36 +29,38 @@ namespace TestClient
 
 
             Console.WriteLine("Enter command id:");
-            int commandID = int.Parse(Console.ReadLine());
-            c1.sendrecieve(commandID.ToString());
+            //int commandID = int.Parse(Console.ReadLine());
+            //c1.sendrecieve(commandID.ToString());
+            string data = makeData(CommandEnum.LogCommand);
+            
+            Console.WriteLine("Sent data : " + data);
+            c1.sendrecieve(data);
             c1.Disconnect();
             Console.ReadLine();
-            */
+            
             #endregion
             #region 2nd client
             /*
             IClient c2 = new TCPClient(ip, port);
             c2.Connect();
             Console.WriteLine("c2 is connected to server");
-            
+
             Console.WriteLine(c1.sendrecieve("this is c1"));
             Console.WriteLine(c2.sendrecieve("this is c2"));
             */
             #endregion
-
             
+            #region json
+            /*
+            JsonConvertor convertor = new JsonConvertor();
             GetConfigCommand command = new GetConfigCommand();
-            string str = JsonConvert.SerializeObject(command, Formatting.Indented, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            });
+            string str = convertor.ToJson(command);
             Console.WriteLine(str);
-            ICommand cmd = JsonConvert.DeserializeObject<ICommand>(str, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
+            ICommand cmd = convertor.FromJson(str);
             Console.WriteLine(cmd.ToString());
-
+            */
+            #endregion
+            
             //int commandID = (int)CommandEnum.NewFileCommand;
             //Console.WriteLine(commandID);
             //CommandEnum commandname = CommandEnum.NewFileCommand;

@@ -9,21 +9,27 @@ using ImageService.Infrastructure;
 
 namespace ImageService.Commands
 {
-    class CloseCommand : ICommand
+    public class CloseCommand : ICommand
     {
-        IDirectoryHandler directoryHandler;
+        List<IDirectoryHandler> handlers;
 
         // A constructor.
-        public CloseCommand(IDirectoryHandler directoryHandler)
+        public CloseCommand(List<IDirectoryHandler> handlers)
         {
-            this.directoryHandler = directoryHandler;
+            this.handlers = handlers;
         }
 
         public string Execute(string[] args, out bool result)
         {
             // send a message to the handler that this command needs to be executed.
-            this.directoryHandler.OnCommandRecieved(this);
-
+            foreach (IDirectoryHandler handler in this.handlers)
+            {
+                if (handler.getPath() == args[0])
+                {
+                    handler.OnCommandRecieved(this);
+                }
+            }
+            
             //this.directoryHandler.DirectoryClosed?.Invoke();
             //AppConfigReader.Instance.removeHandler(args[0]);
             result = true;

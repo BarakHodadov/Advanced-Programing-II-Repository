@@ -6,14 +6,30 @@ using System.Text;
 using System.Threading.Tasks;
 using ImageService.Infrastructure;
 
-namespace ImageService.Communication.Json
+namespace ImageService.Infrastructure
 {
-    class JsonConverter
+    public sealed class JsonConvertor
     {
-        public JsonConverter()
+        private static JsonConvertor instance = null;
+        private static readonly object my_lock = new object();
+        private JsonConvertor()
         {
         }
 
+        public static JsonConvertor Instance
+        {
+            get
+            {
+                lock (my_lock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new JsonConvertor();
+                    }
+                    return instance;
+                }
+            }
+        }
         public string ToJson(ICommand command)
         {
             string str = JsonConvert.SerializeObject(command, Formatting.Indented, new JsonSerializerSettings

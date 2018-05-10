@@ -13,6 +13,7 @@ using ImageService.Server;
 using System.Configuration;
 using ImageService.Logging;
 using ImageService.Controller;
+using ImageService.Controller.Handlers;
 using ImageService.Modal;
 using ImageService.Communication;
 
@@ -122,6 +123,7 @@ namespace ImageService
             {
                 server.OnCloseServer(this, EventArgs.Empty);
             };
+            imageController.setHandlers(server.getHandlers());
 
             ClientHandler ch = new ClientHandler();
             ch.executeCommand += imageController.ExecuteCommand;

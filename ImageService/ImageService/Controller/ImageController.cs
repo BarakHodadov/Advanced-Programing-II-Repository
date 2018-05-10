@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ImageService.Controller.Handlers;
 
 namespace ImageService.Controller
 {
@@ -22,6 +23,11 @@ namespace ImageService.Controller
             commands.Add(1, new NewFileCommand(m_modal));
             commands.Add(2, new GetConfigCommand());
             commands.Add(3, new LogCommand(logs));
+        }
+
+        public void setHandlers(List<IDirectoryHandler> handlers)
+        {
+            commands.Add(4, new CloseCommand(handlers));
         }
 
         // the function gets a command id and arguments and executes it.

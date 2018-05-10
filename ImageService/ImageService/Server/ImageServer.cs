@@ -46,7 +46,7 @@ namespace ImageService.Server
 
                     CloseServer += delegate
                     {
-                        handler.OnCommandRecieved(new CloseCommand(handler));
+                        handler.OnCommandRecieved(new CloseCommand(this.handlersList));
                     };
                 }
             }
@@ -64,6 +64,11 @@ namespace ImageService.Server
             }
             */
             this.CloseServer?.Invoke(this, EventArgs.Empty);
+        }
+
+        public List<IDirectoryHandler> getHandlers()
+        {
+            return this.handlersList;
         }
     }
 }

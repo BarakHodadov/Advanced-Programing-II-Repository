@@ -15,5 +15,6 @@ namespace ImageService.Controller.Handlers
         event EventHandler DirectoryClosed;                     // The Event That Notifies that the Directory is being closed
         void StartHandleDirectory();                            // The Function Recieves the directory to Handle
         void OnCommandRecieved(ICommand command);               // The Event that will be activated upon new Command
+        string getPath();                                       // The path the handker watch at.                                    
     }
 }

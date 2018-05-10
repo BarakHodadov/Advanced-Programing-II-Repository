@@ -34,7 +34,10 @@ namespace ImageService.Controller.Handlers
             this.m_dirWatcher.Created += OnChanged;
             this.DirectoryClosed += CloseHandler;
         }
-
+        public string getPath()
+        {
+            return this.m_path;
+        }
         // called when the handler get a command
         public void OnCommandRecieved(ICommand command)
         {
@@ -65,7 +68,7 @@ namespace ImageService.Controller.Handlers
         public void CloseHandler(object sender, EventArgs e)
         {
             AppConfigReader.Instance.removeHandler(this.m_path);
-
+            Console.WriteLine("I - " + this.m_path + " am bieng closed");
             this.m_logging.Log("The handler cloesd successfuly", MessageTypeEnum.INFO);
             this.m_dirWatcher.EnableRaisingEvents = false;
             this.m_dirWatcher.Dispose();

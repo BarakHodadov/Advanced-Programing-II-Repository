@@ -8,7 +8,7 @@ using ImageService.Infrastructure;
 
 namespace ImageService.Commands
 {
-    class LogCommand : ICommand
+    public class LogCommand : ICommand
     {
         private Logger logger;
         public LogCommand(Logger logger)

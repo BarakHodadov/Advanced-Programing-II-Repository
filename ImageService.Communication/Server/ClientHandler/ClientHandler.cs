@@ -31,7 +31,9 @@ namespace ImageService.Communication
 
         public string ExecuteCommand(string commandLine, TcpClient client)
         {
-           return this.executeCommand?.Invoke(Int32.Parse(commandLine[0].ToString()), commandLine.Substring(1).Split(';'), out bool resultSuccesful);
+            return this.executeCommand?.Invoke(Int32.Parse(commandLine[0].ToString()), commandLine.Substring(1).Split(';'), out bool resultSuccesful);
+            //ICommand cmd = JsonConvertor.Instance.FromJson(commandLine);
+            //return cmd.Execute(commandLine.Split('D'), out bool result);
         }
     }
 }
