@@ -30,25 +30,5 @@ namespace ImageService
         {
             return this.type + " " + this.Message;
         }
-
-        public string Color
-        {
-            get { return this.getColor(); }
-        }
-
-        public string getColor()
-        {
-            switch(this.type)
-            {
-                case "INFO":
-                    return "#FF3FCD16";
-                case "WARNING":
-                    return "Yellow";
-                case "ERROR":
-                    return "Red";
-                default:
-                    return "White";
-            }
-        }
     }
 }

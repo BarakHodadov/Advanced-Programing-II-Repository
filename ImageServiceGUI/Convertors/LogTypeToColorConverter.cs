@@ -18,17 +18,13 @@ namespace ImageServiceGUI.Views
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType != typeof(string))
-                throw new InvalidOperationException("Must convert to a string");
-
-            Log log = (Log)value;
-            switch (log.Type)
+            switch (value)
             {
-                case "Info":
+                case "INFO":
                     return "#FF3FCD16";
-                case "Warning":
+                case "WARNING":
                     return "Yellow";
-                case "Error":
+                case "ERROR":
                     return "Red";
                 default:
                     return "White";

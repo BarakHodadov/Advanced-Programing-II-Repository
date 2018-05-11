@@ -15,17 +15,17 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="265,20,0,0"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
-            <!--<local:LogTypeToColorConverter x:Key="TypeToColorConverter"/>-->
         </Style>
+        <local:LogTypeToColorConverter x:Key="TypeToColorConverter"/>
     </UserControl.Resources>
     <Grid>
         <Label Content="Log" Style="{StaticResource myStyle}"/>
-        <DataGrid ItemsSource="{Binding logsList}"  HorizontalAlignment="Left" Height="300" Margin="10,90,0,0" VerticalAlignment="Top" Width="580" AutoGenerateColumns="False">
+        <DataGrid ItemsSource="{Binding logsList}" HorizontalAlignment="Left" Height="300" Margin="10,90,0,0" VerticalAlignment="Top" Width="580" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Type" Binding="{Binding Path=Type}" >
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
-                            <Setter Property="Background" Value="{Binding Color}" />
+                            <Setter Property="Background" Value="{Binding Type,Converter={StaticResource TypeToColorConverter}}" />
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>

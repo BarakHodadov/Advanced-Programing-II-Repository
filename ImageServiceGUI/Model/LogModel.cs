@@ -28,7 +28,7 @@ namespace ImageServiceGUI.Model
             GUITCPClient client = GUITCPClient.Instance;
             client.Connect();
             string logs = client.sendrecieve(client.makeData(CommandEnum.LogCommand));
-            string[] logsFromCommand = logs.Remove(logs.Length - 1).Split(';');
+            string[] logsFromCommand = logs.Remove(logs.Length - 1).Split(';'); // remove the last ; from the logs list and split them
             logsList = new ObservableCollection<Log>();
 
             string type, message;
@@ -38,32 +38,11 @@ namespace ImageServiceGUI.Model
                 message = log.Split('#')[1];
                 logsList.Add(new Log(type, message));
             }
-
-            //Log log1 = new Log("Info", "This is info");
-            //Log log2 = new Log("Warning", "This is Warning");
-            //Log log3 = new Log("Error", "This is Error");
-            //Log log4 = new Log("Info", "This is info");
-            //Log log5 = new Log("Warning", "This is Warning");
-            //Log log6 = new Log("Error", "This is Error");
-            //logsList.Add(log1);
-            //logsList.Add(log2);
-            //logsList.Add(log3);
-            //logsList.Add(log4);
-            //logsList.Add(log5);
-            //logsList.Add(log6);
         }
 
         public ICollection<Log> Logs
         {
             get { return this.logsList; }
-        }
-
-        public void setColors()
-        {
-            foreach (Log log in logsList)
-            {
-
-            }
         }
     } 
 }
