@@ -5,17 +5,17 @@ VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "ImageService\ImageService.csproj", "{F1ECB772-C1B9-478C-995E-DB0568D8C1DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServiceGUI", "ImageServiceGUI\ImageServiceGUI.csproj", "{456DCC3C-51F4-46E6-8B61-5454AA0323D0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Communication", "ImageService.Communication\ImageService.Communication.csproj", "{9EE5FE76-063F-4771-B035-2D7D690FF796}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Logging", "ImageService.Logging\ImageService.Logging.csproj", "{478D2C1B-5F74-4937-A721-79FF86387040}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Infrastructure", "ImageService.Infrastructure\ImageService.Infrastructure.csproj", "{989D3A8C-93B6-49A3-836C-31C5888B6061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestServer", "TestServer\TestServer.csproj", "{0A6D7D69-482B-40D5-8EFB-564036E10229}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestServer", "TestServer\TestServer.csproj", "{0A6D7D69-482B-40D5-8EFB-564036E10229}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "TestClient\TestClient.csproj", "{FC69BB97-84D8-45CC-94E8-9B7BCBFA8BDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "TestClient\TestClient.csproj", "{FC69BB97-84D8-45CC-94E8-9B7BCBFA8BDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServiceGUI", "ImageServiceGUI\ImageServiceGUI.csproj", "{456DCC3C-51F4-46E6-8B61-5454AA0323D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,6 @@ Global
 		{F1ECB772-C1B9-478C-995E-DB0568D8C1DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1ECB772-C1B9-478C-995E-DB0568D8C1DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1ECB772-C1B9-478C-995E-DB0568D8C1DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{456DCC3C-51F4-46E6-8B61-5454AA0323D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{456DCC3C-51F4-46E6-8B61-5454AA0323D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{456DCC3C-51F4-46E6-8B61-5454AA0323D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{456DCC3C-51F4-46E6-8B61-5454AA0323D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9EE5FE76-063F-4771-B035-2D7D690FF796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9EE5FE76-063F-4771-B035-2D7D690FF796}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EE5FE76-063F-4771-B035-2D7D690FF796}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{FC69BB97-84D8-45CC-94E8-9B7BCBFA8BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC69BB97-84D8-45CC-94E8-9B7BCBFA8BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC69BB97-84D8-45CC-94E8-9B7BCBFA8BDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{456DCC3C-51F4-46E6-8B61-5454AA0323D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{456DCC3C-51F4-46E6-8B61-5454AA0323D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{456DCC3C-51F4-46E6-8B61-5454AA0323D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{456DCC3C-51F4-46E6-8B61-5454AA0323D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
