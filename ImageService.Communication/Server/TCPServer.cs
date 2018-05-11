@@ -29,7 +29,7 @@ namespace ImageService.Communication
             listener.Start();
             Console.WriteLine("Waiting for connections...");
 
-            //Task task = new Task(() => {
+            Task task = new Task(() => {
                 while (true)
                 {
                     try
@@ -44,8 +44,8 @@ namespace ImageService.Communication
                     }
                 }
                 Console.WriteLine("Server stopped");
-            //});
-            //task.Start();
+            });
+            task.Start();
         }
         public void Stop()
         {

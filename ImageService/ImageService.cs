@@ -129,6 +129,8 @@ namespace ImageService
             ch.executeCommand += imageController.ExecuteCommand;
             TCPServer tcpserver = new TCPServer("127.0.0.1", 8000, ch);
             tcpserver.Start();
+
+            logger.Log("Server started", MessageTypeEnum.INFO);
         }
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {

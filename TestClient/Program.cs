@@ -31,7 +31,7 @@ namespace TestClient
             Console.WriteLine("Enter command id:");
             //int commandID = int.Parse(Console.ReadLine());
             //c1.sendrecieve(commandID.ToString());
-            string data = makeData(CommandEnum.CloseCommand, new string[] { @"C:\Users\Barak\Desktop\temp" });
+            string data = makeData(CommandEnum.LogCommand);
             
             Console.WriteLine("Sent data : " + data);
             c1.sendrecieve(data);
