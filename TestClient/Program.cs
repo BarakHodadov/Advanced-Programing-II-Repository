@@ -4,6 +4,7 @@ using ImageService.Commands;
 using ImageService.Communication;
 using ImageService.Infrastructure;
 using Newtonsoft.Json.Linq;
+using ImageServiceGUI.GUIClient;
 
 namespace TestClient
 {
@@ -20,24 +21,34 @@ namespace TestClient
         }
         static void Main(string[] args)
         {
+            /*
+            GUITCPClient client = GUITCPClient.Instance;
+            client.Connect();
+            client.sendrecieve(client.makeData(CommandEnum.GetConfigCommand));
+
+            GUITCPClient client2 = GUITCPClient.Instance;
+            client2.Connect();
+            client2.sendrecieve(client2.makeData(CommandEnum.LogCommand));
+            Console.ReadLine();
+            */
             #region test client
+            
             string ip = "127.0.0.1";
             int port = 8000;
             IClient c1 = new TCPClient(ip, port);
             c1.Connect();
             Console.WriteLine("c1 is connected to server");
 
-
-            Console.WriteLine("Enter command id:");
-            //int commandID = int.Parse(Console.ReadLine());
-            //c1.sendrecieve(commandID.ToString());
             string data = makeData(CommandEnum.LogCommand);
-            
             Console.WriteLine("Sent data : " + data);
+            c1.sendrecieve(data);
+
+            data = makeData(CommandEnum.LogCommand);
+            Console.WriteLine("Sent data in the 2nd time : " + data);
             c1.sendrecieve(data);
             c1.Disconnect();
             Console.ReadLine();
-
+            
             #endregion
             #region 2nd client
             /*

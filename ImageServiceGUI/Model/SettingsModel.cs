@@ -5,7 +5,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ImageService.Communication;
 using ImageService.Controller.Handlers;
+using ImageService.Infrastructure;
+using ImageServiceGUI.GUIClient;
 
 namespace ImageServiceGUI.Model
 {
@@ -29,10 +32,16 @@ namespace ImageServiceGUI.Model
 
         public SettingsModel()
         {
-            handlersList = new ObservableCollection<string>();
-            handlersList.Add("handler1");
-            handlersList.Add("handler2");
-            handlersList.Add("handler3");
+            GUITCPClient client = GUITCPClient.Instance;
+            client.Connect();
+            string[] settings = client.sendrecieve(client.makeData(CommandEnum.GetConfigCommand)).Split('#');
+
+            this.outputDir = settings[1];
+            this.sourceName = settings[2];
+            this.logName = settings[3];
+            this.thumbSize = settings[4];
+            
+            handlersList = new ObservableCollection<string>(settings[0].Split(';'));
         }
 
         #region Properties
@@ -54,7 +63,7 @@ namespace ImageServiceGUI.Model
             set { this.sourceName = value; }
         }
 
-        public string LogeName
+        public string LogName
         {
             get { return this.logName; }
             set { this.logName = value; }

@@ -11,6 +11,6 @@ namespace ImageService.Logging.Modal
     {
         INFO,
         WARNING,
-        FAIL
+        ERROR
     }
 }

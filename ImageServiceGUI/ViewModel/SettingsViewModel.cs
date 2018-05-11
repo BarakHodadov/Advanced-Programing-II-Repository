@@ -46,9 +46,9 @@ namespace ImageServiceGUI.ViewModel
             get { return this.settingsModel.SourceName; }
         }
 
-        public string LogeName
+        public string LogName
         {
-            get { return this.settingsModel.LogeName; }
+            get { return this.settingsModel.LogName; }
         }
 
         public string ThumbSize

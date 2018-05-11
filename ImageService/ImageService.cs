@@ -170,7 +170,7 @@ namespace ImageService
                 case MessageTypeEnum.WARNING:
                     msgType = EventLogEntryType.Warning;
                     break;
-                case MessageTypeEnum.FAIL:
+                case MessageTypeEnum.ERROR:
                     msgType = EventLogEntryType.Error;
                     break;
                 default:

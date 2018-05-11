@@ -40,11 +40,11 @@ namespace ImageService
         {
             switch(this.type)
             {
-                case "Info":
+                case "INFO":
                     return "#FF3FCD16";
-                case "Warning":
+                case "WARNING":
                     return "Yellow";
-                case "Error":
+                case "ERROR":
                     return "Red";
                 default:
                     return "White";

@@ -20,7 +20,7 @@ namespace ImageService.Commands
         {
             Console.WriteLine(this.logger.Logs.Count);
             result = true;
-            string logs = "";
+            string logs = "INFO#info message;WARNING#warning message;ERROR#error message;";
             foreach(Log l in this.logger.Logs)
             {
                 logs += l.Type + "#" + l.Message + ";";

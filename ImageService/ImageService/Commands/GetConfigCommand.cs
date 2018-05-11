@@ -17,14 +17,14 @@ namespace ImageService.Commands
         public string Execute(string[] args, out bool result)
         {
             result = true;
-            string handler = "handler=" + AppConfigReader.Instance.GetValueByKey("Handler");
-            string outputDir = "outputDir=" + AppConfigReader.Instance.GetValueByKey("OutputDir");
-            string sourceName = "sourceName=" + AppConfigReader.Instance.GetValueByKey("SourceName");
-            string logName = "logName=" + AppConfigReader.Instance.GetValueByKey("LogName");
-            string thumbnailSize = "thumbnailSize=" + AppConfigReader.Instance.GetValueByKey("ThumbnailSize");
+            string handler = AppConfigReader.Instance.GetValueByKey("Handler");
+            string outputDir = AppConfigReader.Instance.GetValueByKey("OutputDir");
+            string sourceName = AppConfigReader.Instance.GetValueByKey("SourceName");
+            string logName = AppConfigReader.Instance.GetValueByKey("LogName");
+            string thumbnailSize = AppConfigReader.Instance.GetValueByKey("ThumbnailSize");
 
             string[] data = { handler , outputDir , sourceName , logName , thumbnailSize};
-            return String.Join(Environment.NewLine, data);
+            return String.Join("#", data);
         }
     }
 }

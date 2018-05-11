@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ImageService.Communication\ImageService.Communication.csproj" />
     <ProjectReference Include="..\ImageService.Infrastructure\ImageService.Infrastructure.csproj" />
+    <ProjectReference Include="..\ImageServiceGUI\ImageServiceGUI.csproj" />
     <ProjectReference Include="..\ImageService\ImageService.csproj" />
   </ItemGroup>
 
