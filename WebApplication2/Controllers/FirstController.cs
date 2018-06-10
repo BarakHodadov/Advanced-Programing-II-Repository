@@ -53,9 +53,16 @@ namespace WebApplication2.Controllers
             return View(model);
         }
 
-        public ActionResult RemoveHandler()
+        public ActionResult RemoveHandler(string HandlerPath = "")
         {
-            return View();
+            RemoveHandlerModel rhModel = new RemoveHandlerModel(HandlerPath);
+            return View(rhModel);
+        }
+        [HttpPost]
+        public void DeleteHandler(string handler)
+        {
+            RemoveHandlerModel m = new RemoveHandlerModel(handler);
+            m.removeHandler();
         }
 
         #region Dor's code

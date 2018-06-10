@@ -12,23 +12,8 @@
 
 <br />
 <p> Handlers List:</p>
-@foreach (var hanler in Model.handlersList)
+@foreach (string handler in Model.handlersList)
 {
-    @Html.ActionLink(hanler, "RemoveHandler")
-
+    @Html.ActionLink(@handler, "RemoveHandler", new WebApplication2.Models.RemoveHandlerModel(@handler))
     <br />
 }
-
-
-    <script type="text/javascript">
-    $(document).ready(function () {
-
-      $('ActionLink').click(function (e)
-      {
-          location.href = '@Url.Content("~/First/RemoveHandler/")';
-          @{ Session["HandlerToRemove"] = ""; }
-      });
-
-    });
-    </script>
-@{ Session["HandlerToRemove"] = @"C:\Users\benho\Desktop\from"; }
