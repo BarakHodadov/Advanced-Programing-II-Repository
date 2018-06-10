@@ -58,6 +58,7 @@ namespace ImageService
 
                 config.AppSettings.Settings[key].Value = value;
                 config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("appSettings");
             }
         }
         
@@ -66,24 +67,31 @@ namespace ImageService
          /// Change the app config by removing the handler.
          /// </summary>
          /// <param name="handler"></param>
-        public void removeHandler(string handler)
+        public void removeHandler(string handlerToRemove)
         {
             string handlers = this["Handler"];
-
-            //Add your code here...
+            Console.WriteLine("my current handlers are " + handlers);
             string[] handlersList = handlers.Split(';');
-
-            for (int i = 0; i < handlersList.Length; i++)
+            List<string> newHandlers = new List<string>();
+            foreach (string handler in handlersList)
             {
-                if (handlersList[i] == handler)
+                if (handler != handlerToRemove)
                 {
-                    handlersList[i] = "";
-                    break;
+                    newHandlers.Add(handler);
                 }
             }
-            handlers = String.Join(";", handlersList);
+            handlers = String.Join(";", newHandlers);
+            Console.WriteLine("after " + handlers);
             this["Handler"] = handlers;
-            Console.WriteLine("changed handles to:" + handlers);
+            //handlers = String.Join(";", handlersList);
+
+
+
+            //int index = handlers.IndexOf(handler);
+            //handlers = handlers.Remove(index, handler.Length + 1);
+
+            //this["Handler"] = handlers;
+            Console.WriteLine("changed handlers to:" + newHandlers);
         }
     }
 }

@@ -1,0 +1,31 @@
+﻿@model WebApplication2.Models.LogsModel
+@{
+    ViewBag.Title = "Logs";
+}
+
+<h2>Logs</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Type
+        </th>
+        <th>
+            Message
+        </th>
+    </tr>
+    
+    @foreach (var item in Model.logsList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(ModelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+        </tr>
+    }
+
+</table>
+

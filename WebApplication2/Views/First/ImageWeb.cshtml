@@ -1,0 +1,39 @@
+﻿@model WebApplication2.Models.ImageWebModel
+@{
+    ViewBag.Title = "Image Web";
+}
+
+<h1>Welcome to our awsome website</h1>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentInfo.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentInfo.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentInfo.LastName)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Students)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+<p> @Html.DisplayNameFor(model => model.Status) : @Html.DisplayFor(model => model.Status)</p>
+<p> @Html.DisplayNameFor(model => model.NumPhotos) : @Html.DisplayFor(model => model.NumPhotos)</p>

@@ -1,0 +1,27 @@
+﻿@model WebApplication2.Models.RemoveHandlerModel
+@{
+    ViewBag.Title = "RemoveHandler";
+}
+
+<h2>RemoveHandler</h2>
+<h1>@Session["HandlerToRemove"].ToString()</h1>
+<p> Are you sure you want to remove this handler?</p>
+<div class="form-group">
+    <div class="col-md-offset-0 col-md-0">
+        <input id="remove" type="submit" value="OK" class="btn btn-default" />
+        <input id="backtoConfig" type="submit" value="cancel" onclick=" location.href = '@Url.Content("~/First/Config/")';" class="btn btn-default" />
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+      $('#remove').click(function (e)
+      {
+          location.href = '@Url.Content("~/First/Config/")';
+      });
+
+    });
+    </script>
+
+
+</div>

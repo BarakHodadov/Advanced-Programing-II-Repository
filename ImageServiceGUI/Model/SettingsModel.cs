@@ -41,7 +41,10 @@ namespace ImageServiceGUI.Model
             this.logName = settings[3];
             this.thumbSize = settings[4];
             
-            handlersList = new ObservableCollection<string>(settings[0].Split(';'));
+            if (settings[0].Equals(""))
+                handlersList = new ObservableCollection<string>();
+            else
+                handlersList = new ObservableCollection<string>(settings[0].Split(';'));
         }
 
         #region Properties
@@ -89,6 +92,7 @@ namespace ImageServiceGUI.Model
 
         public void RemoveHandler(string handler)
         {
+            GUITCPClient.Instance.sendrecieve(GUITCPClient.Instance.makeData(CommandEnum.CloseCommand, new string[] { handler }));
             this.handlersList.Remove(handler);
         }
     }

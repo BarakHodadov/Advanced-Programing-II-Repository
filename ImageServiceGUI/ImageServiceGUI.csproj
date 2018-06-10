@@ -61,8 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Convertors\CommandConvertor.cs" />
-    <Compile Include="Convertors\JsonConvertor.cs" />
+    <Compile Include="GUIClient\GUIControler.cs" />
     <Compile Include="GUIClient\GUITCPClient.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

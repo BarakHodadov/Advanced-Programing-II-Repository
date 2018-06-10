@@ -18,7 +18,6 @@ namespace ImageService.Commands
 
         public string Execute(string[] args, out bool result)
         {
-            Console.WriteLine(this.logger.Logs.Count);
             result = true;
             string logs = "INFO#info message;WARNING#warning message;ERROR#error message;";
             foreach(Log l in this.logger.Logs)

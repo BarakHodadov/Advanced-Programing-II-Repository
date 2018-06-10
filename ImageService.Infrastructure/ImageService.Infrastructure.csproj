@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Convertors\CommandConvertor.cs" />
+    <Compile Include="Convertors\JsonConvertor.cs" />
     <Compile Include="Enums\CommandEnum.cs" />
     <Compile Include="ICommand.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
