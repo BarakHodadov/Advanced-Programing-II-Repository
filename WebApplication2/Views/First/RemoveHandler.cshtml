@@ -4,7 +4,7 @@
 }
 
 <h1>RemoveHandler</h1>
-<p>@Html.DisplayFor(model => model.HandlerPath)</p>
+<p> Image path: <text  id="myPath">@Model.HandlerPath</text> </p>
 <br />
 <p> Are you sure you want to remove this handler?</p>
 <div class="form-group">
@@ -17,8 +17,11 @@
     $(document).ready(function () {
 
       $('#remove').click(function ()
-      { 
-          $.post("@Url.Action("removeHandler")","First", @Html.DisplayFor(Model => Model.HandlerPath))
+      {
+          $.post("RemoveHandlerHelper", {
+              HandlerPath: $("#myPath").text()
+          });
+          window.location.href = '@Url.Content("~/First/Config/")';
       });
 
     });

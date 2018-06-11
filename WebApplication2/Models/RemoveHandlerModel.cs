@@ -25,7 +25,7 @@ namespace WebApplication2.Models
 
         public void removeHandler()
         {
-            client.sendrecieve(client.makeData(CommandEnum.CloseCommand, new string[] { this.HandlerPath } ));
+            client.sendrecieve(client.makeData(CommandEnum.CloseCommand, new string[] { this.HandlerPath} ));
         }
     }
 }

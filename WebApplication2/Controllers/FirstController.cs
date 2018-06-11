@@ -53,15 +53,24 @@ namespace WebApplication2.Controllers
             return View(model);
         }
 
-        public ActionResult RemoveHandler(string HandlerPath = "")
+        [HttpPost]
+        public void RemoveHandlerHelper(string HandlerPath = "")
         {
             RemoveHandlerModel rhModel = new RemoveHandlerModel(HandlerPath);
-            return View(rhModel);
+            rhModel.removeHandler();
         }
-        [HttpPost]
-        public void DeleteHandler(string handler)
+
+        [HttpGet]
+        public ActionResult RemoveHandler(string HandlerPath = "")
         {
-            RemoveHandlerModel m = new RemoveHandlerModel(handler);
+            return View("RemoveHandler", new RemoveHandlerModel(HandlerPath)); 
+        }
+
+
+        [HttpPost]
+        public void DeleteHandler(string HandlerPath)
+        {
+            RemoveHandlerModel m = new RemoveHandlerModel(HandlerPath);
             m.removeHandler();
         }
 
