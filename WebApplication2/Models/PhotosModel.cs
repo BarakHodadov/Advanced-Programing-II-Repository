@@ -46,8 +46,14 @@ namespace WebApplication2.Models
         {
             return path.Replace(HttpContext.Current.Server.MapPath("~/"), "~/").Replace(@"\", "/");
         }
-        public void removePhoto(string name)
+
+
+        public void DeletePhoto(string relative_path)
         {
+            File.Delete(System.IO.Path.GetFullPath(relative_path));
+
+            string absolute_path =HttpContext.Current.Server.MapPath(relative_path);
+            File.Delete(absolute_path);
 
         }
     }
