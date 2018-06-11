@@ -154,6 +154,7 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\ImageWebModel.cs" />
     <Compile Include="Models\LogsModel.cs" />
+    <Compile Include="Models\PhotosModel.cs" />
     <Compile Include="Models\RemoveHandlerModel.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\WebClient.cs" />
@@ -180,6 +181,7 @@
     <Content Include="Views\First\Config.cshtml" />
     <Content Include="Views\First\Logs.cshtml" />
     <Content Include="Views\First\RemoveHandler.cshtml" />
+    <Content Include="Views\First\Photos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -187,7 +189,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImageService.Communication\ImageService.Communication.csproj">
       <Project>{9ee5fe76-063f-4771-b035-2d7d690ff796}</Project>

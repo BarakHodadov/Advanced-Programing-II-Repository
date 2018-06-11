@@ -5,6 +5,7 @@ using ImageService.Communication;
 using ImageService.Infrastructure;
 using Newtonsoft.Json.Linq;
 using ImageServiceGUI.GUIClient;
+using System.IO;
 
 namespace TestClient
 {
@@ -33,20 +34,10 @@ namespace TestClient
             */
             #region test client
             
-            string ip = "127.0.0.1";
-            int port = 8000;
-            IClient c1 = new TCPClient(ip, port);
-            c1.Connect();
-            Console.WriteLine("c1 is connected to server");
-
-            string data = makeData(CommandEnum.LogCommand);
-            Console.WriteLine("Sent data : " + data);
-            c1.sendrecieve(data);
-
-            data = makeData(CommandEnum.LogCommand);
-            Console.WriteLine("Sent data in the 2nd time : " + data);
-            c1.sendrecieve(data);
-            c1.Disconnect();
+            foreach (string path in Directory.GetFiles(@"C:\Barak\biu\second year\semester d\Advanced Programing 2\Ex1\MyNewServiceSol\WebApplication2\Images", "*", SearchOption.AllDirectories))
+            {
+                Console.WriteLine(path);
+            }
             Console.ReadLine();
             
             #endregion

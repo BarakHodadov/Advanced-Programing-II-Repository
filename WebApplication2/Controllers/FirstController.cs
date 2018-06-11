@@ -53,6 +53,14 @@ namespace WebApplication2.Controllers
             return View(model);
         }
 
+
+        public ActionResult Photos()
+        {
+            PhotosModel model = new PhotosModel();
+            return View(model);
+        }
+
+
         [HttpPost]
         public void RemoveHandlerHelper(string HandlerPath = "")
         {
