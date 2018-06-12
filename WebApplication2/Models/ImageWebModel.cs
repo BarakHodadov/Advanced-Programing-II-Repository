@@ -48,7 +48,7 @@ namespace WebApplication2.Models
             */
             
             //if path is absulute
-            int filesNum = Directory.GetFiles(path, "*", SearchOption.AllDirectories).Length;
+            int filesNum = Directory.GetFiles(System.IO.Path.Combine(path,"Thumbnails"), "*", SearchOption.AllDirectories).Length;
             return filesNum;
         }
 

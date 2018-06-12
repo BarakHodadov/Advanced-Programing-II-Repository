@@ -42,19 +42,31 @@ namespace WebApplication2.Models
         /// <summary>
         /// convert absolout path to relative path
         /// </summary>
-        public string ToRelativePath(string path)
+        public string ToRelativePath(string AbsolutepPath)
         {
-            return path.Replace(HttpContext.Current.Server.MapPath("~/"), "~/").Replace(@"\", "/");
+            return AbsolutepPath.Replace(HttpContext.Current.Server.MapPath("~/"), "~/").Replace(@"\", "/");
+        }
+
+        public string GetFullImagePath(string path)
+        {
+            return path.Replace(@"Thumbnails\", "");
         }
 
 
         public void DeletePhoto(string relative_path)
         {
+            //delete thumbnail
             File.Delete(System.IO.Path.GetFullPath(relative_path));
 
-            string absolute_path =HttpContext.Current.Server.MapPath(relative_path);
-            File.Delete(absolute_path);
 
+            //delete image
+            string image_path = System.IO.Path.GetFullPath(this.GetFullImagePath(relative_path));
+            File.Delete(image_path);
+        }
+
+        public string getImageName(string path)
+        {
+            return System.IO.Path.GetFileName(path);
         }
     }
 }
