@@ -154,6 +154,7 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\ImageWebModel.cs" />
     <Compile Include="Models\LogsModel.cs" />
+    <Compile Include="Models\PhotoRemoverModel.cs" />
     <Compile Include="Models\PhotosModel.cs" />
     <Compile Include="Models\RemoveHandlerModel.cs" />
     <Compile Include="Models\Student.cs" />
@@ -182,6 +183,7 @@
     <Content Include="Views\First\Logs.cshtml" />
     <Content Include="Views\First\RemoveHandler.cshtml" />
     <Content Include="Views\First\Photos.cshtml" />
+    <Content Include="Views\First\PhotoRemover.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

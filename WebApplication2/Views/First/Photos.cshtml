@@ -4,26 +4,11 @@
 }
 
 <h2>Photos</h2>
-<!--<img src="~/Images/Thumbnails/2008/4/dog.jpg" class="rounded-circle" width="120" height="100" alt="a dog" />-->
 @foreach (var path in Model.GetThumbnailImages())
 {
     <img src="@Url.Content(path)" class="img-circle" width="150" height="150" alt="ThumbnailImage" />
+    <a href="@Url.Action("Photos", "First", path)" style="font-size:x-large" class="btn btn-info btn-xs button">View</a>
+    <a href="@Url.Action("PhotoRemover", "First", new { path = Model.GetFullImagePath(path) })" style="font-size:x-large" class="btn btn-danger btn-xs button">Delete</a>
     <br />
     <br />
-    <a href="@Url.Action("ViewImage", "First", path)" class="btn btn-info btn-xs button">View</a>
-    <button id="btn1" class="btn btn-danger btn-xs button">Delete</button>
-    <br>
 }
-
-
-    <script>
-        var btn1 = document.getElementById("btn1");
-        btn1.onclick = function () {
-            if (confirm("Are you sure you wand to delete this image?")) {
-                txt = "You pressed OK!"
-            } else {
-                txt = "You pressed Cancel!"
-            }
-            alert(txt)
-        };
-    </script>

@@ -1,6 +1,7 @@
 ﻿using ImageService;
 using Newtonsoft.Json.Linq;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -39,7 +40,7 @@ namespace WebApplication2.Controllers
             ImageWebModel model = new ImageWebModel(students);
             return View(model);
         }
-        
+
 
         public ActionResult Config()
         {
@@ -59,6 +60,13 @@ namespace WebApplication2.Controllers
             PhotosModel model = new PhotosModel();
             return View(model);
         }
+        [HttpGet]
+        public ActionResult PhotoRemover(string path)
+        {
+            PhotoRemoverModel model = new PhotoRemoverModel(path);
+            return View(model);
+        }
+
 
 
         [HttpPost]
@@ -74,6 +82,22 @@ namespace WebApplication2.Controllers
             return View("RemoveHandler", new RemoveHandlerModel(HandlerPath)); 
         }
 
+        [HttpGet]
+        public ActionResult DeletePhoto(string absolute_path)
+        {
+            //delete image
+            System.IO.File.Delete(absolute_path);
+
+            //delete thumbnail
+            string thumImagePath = absolute_path.Replace(@"\Images", @"\Images\Thumbnails");
+            System.IO.File.Delete(thumImagePath);
+
+            return View("Photos", new PhotosModel());
+        }
+        public string GetFullImagePath(string path)
+        {
+            return path.Replace(@"Thumbnails\\", "\\");
+        }
 
         [HttpPost]
         public void DeleteHandler(string HandlerPath)

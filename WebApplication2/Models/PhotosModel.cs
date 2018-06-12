@@ -17,7 +17,7 @@ namespace WebApplication2.Models
         {
             if (!path.Equals(""))
             {
-                this.Path = path;
+                this.Path = ToRelativePath(path);
                 this.Images = Directory.GetFiles(this.Path, "*", SearchOption.AllDirectories);
                 return;
             }
@@ -49,19 +49,7 @@ namespace WebApplication2.Models
 
         public string GetFullImagePath(string path)
         {
-            return path.Replace(@"Thumbnails\", "");
-        }
-
-
-        public void DeletePhoto(string relative_path)
-        {
-            //delete thumbnail
-            File.Delete(System.IO.Path.GetFullPath(relative_path));
-
-
-            //delete image
-            string image_path = System.IO.Path.GetFullPath(this.GetFullImagePath(relative_path));
-            File.Delete(image_path);
+            return System.IO.Path.Combine(this.Path,path.Replace(@"/Images/Thumbnails/", @"/").Replace(@"/",@"\")).Replace(@"~\","");
         }
 
         public string getImageName(string path)
