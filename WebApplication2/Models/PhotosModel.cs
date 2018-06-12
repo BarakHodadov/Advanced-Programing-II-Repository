@@ -38,7 +38,6 @@ namespace WebApplication2.Models
             return relativePaths;
         }
 
-
         /// <summary>
         /// convert absolout path to relative path
         /// </summary>

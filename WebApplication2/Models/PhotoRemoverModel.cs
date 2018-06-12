@@ -24,5 +24,11 @@ namespace WebApplication2.Models
             string rel_path = AbsolutepPath.Replace(HttpContext.Current.Server.MapPath("~/"), "~/").Replace(@"\", "/");
             return rel_path;
         }
+
+        public string getImageName(string path)
+        {
+            return System.IO.Path.GetFileName(path);
+        }
+
     }
 }

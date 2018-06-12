@@ -9,6 +9,7 @@
     <img src="@Url.Content(path)" class="img-circle" width="150" height="150" alt="ThumbnailImage" />
     <a href="@Url.Action("Photos", "First", path)" style="font-size:x-large" class="btn btn-info btn-xs button">View</a>
     <a href="@Url.Action("PhotoRemover", "First", new { path = Model.GetFullImagePath(path) })" style="font-size:x-large" class="btn btn-danger btn-xs button">Delete</a>
+    <p>@Model.getImageName(path)</p>
     <br />
     <br />
 }

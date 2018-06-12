@@ -6,4 +6,6 @@
 <h2>Remove photo</h2>
 
 <img src="@Url.Content(Model.ToRelativePath(Model.PhotoToRemove))" class="img-circle" width="150" height="150" alt="ThumbnailImage" />
-<a href="@Url.Action("DeletePhoto","First", new { absolute_path = Model.PhotoToRemove })" class="btn btn-danger button" >Delete photo</a>
+<br />
+<p>are you sure you want to remove @Model.getImageName(Model.PhotoToRemove).Split('.')[0] ?</p>
+<a href="@Url.Action("DeletePhoto","First", new { absolute_path = Model.PhotoToRemove })" class="btn btn-danger button">Delete photo</a>
